@@ -10,6 +10,8 @@ GEM
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     equalizer (0.0.11)
+    faker (1.6.3)
+      i18n (~> 0.5)
     gene_pool (1.4.1)
       thread_safe
     httmultiparty (0.3.16)
@@ -19,6 +21,7 @@ GEM
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+    i18n (0.7.0)
     ice_nine (0.11.2)
     json (1.8.3)
     mimemagic (0.3.1)
@@ -29,6 +32,8 @@ GEM
     persistent_httparty (0.1.2)
       httparty (~> 0.9)
       persistent_http (< 2)
+    sentimental (1.4.0)
+      json (~> 1.8, >= 1.8.3)
     telegram-bot-ruby (0.4.2)
       httmultiparty
       persistent_httparty
@@ -44,6 +49,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  faker
+  sentimental
   telegram-bot-ruby
 
 BUNDLED WITH

@@ -1,4 +1,8 @@
 require_relative 'alebian_bot'
+require 'logger'
+
+logger = Logger.new(STDOUT)
+logger.level = Logger::WARN
 
 token = nil
 token_path = File.expand_path("./.telegram_bot_token")
@@ -9,4 +13,5 @@ else
         "Could not load the Telegram Bot Token, store it in a file called '.telegram_bot_token'"
 end
 
-AlebianBot.run(token)
+bot = AlebianBot.new(token, logger)
+bot.run
