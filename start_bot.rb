@@ -5,13 +5,15 @@ logger = Logger.new(STDOUT)
 logger.level = Logger::WARN
 
 token = nil
-token_path = File.expand_path("./.telegram_bot_token")
-if File.exists?(token_path)
+
+begin
+  token_path = File.expand_path("./.telegram_bot_token")
   token = File.read(token_path).strip
-else
-  raise LoadError,
-        "Could not load the Telegram Bot Token, store it in a file called '.telegram_bot_token'"
+rescue
+  logger.error("Could not load the Telegram Bot Token, store it in a file called '.telegram_bot_token'")
+  return
 end
 
 bot = AlebianBot.new(token, logger)
+logger.info('Starting bot...')
 bot.run

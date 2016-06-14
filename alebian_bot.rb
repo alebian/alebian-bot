@@ -3,29 +3,36 @@ require_relative 'lib/alan_perlis'
 require_relative 'lib/chuck_norris'
 require 'faker'
 require 'sentimental'
+require 'emoji'
 require 'byebug'
 
 class AlebianBot
   DEFAULT_MESSAGE = 'Unknown command. '.freeze
-  HELP_MESSAGE = 'Available commands: /help, /chuck, /perlis'.freeze
+  HELP_MESSAGE = 'Available commands: /help, /chuck, /perlis, /star'.freeze
 
   def initialize(token, logger)
     @token = token
     @logger = logger
+    @analyzer = Sentimental.new
+    @analyzer.load_defaults
   end
 
   def run
     Telegram::Bot::Client.run(@token) do |bot|
       bot.listen do |message|
-        case message.text
+        command = message.text.split(' ').first
+        case command
         when '/help'
-          bot.api.send_message message_hash(message, HELP_MESSAGE)
+          send_message(bot, message, HELP_MESSAGE)
         when '/chuck'
-          bot.api.send_message message_hash(message, ChuckNorris.random_quote)
+          send_message(bot, message, ChuckNorris.random_quote)
         when '/perlis'
-          bot.api.send_message message_hash(message, AlanPerlis.random_quote)
+          send_message(bot, message, AlanPerlis.random_quote)
+        when '/star'
+          send_message(bot, message, Faker::StarWars.quote)
         else
-          bot.api.send_message message_hash(message, DEFAULT_MESSAGE + HELP_MESSAGE)
+          response = analyze_message(message.text)
+          send_message(bot, message, response)
         end
       end
     end
@@ -33,10 +40,23 @@ class AlebianBot
 
   private
 
+  def analyze_message(text)
+    sentiment = @analyzer.sentiment(text)
+    case sentiment
+    when :positive
+      return "Thanks! \u{263A}"
+    when :negative
+      return "\u{1F628} Wow, so rude!"
+    else
+      return "I didn't understand you, try /help to see the available commands."
+    end
+  end
+
+  def send_message(bot, message, text)
+    bot.api.send_message message_hash(message, text)
+  end
+
   def message_hash(message, text)
-    {
-      chat_id: message.chat.id,
-      text: text
-    }
+    { chat_id: message.chat.id, text: text }
   end
 end
