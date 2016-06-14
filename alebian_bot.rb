@@ -3,6 +3,7 @@ require_relative 'lib/alan_perlis'
 require_relative 'lib/chuck_norris'
 
 class AlebianBot
+  DEFAULT_MESSAGE = 'Unknown command. '.freeze
   HELP_MESSAGE = 'Available commands: /help, /chuck, /perlis'.freeze
 
   class << self
@@ -16,6 +17,8 @@ class AlebianBot
             bot.api.send_message message_hash(message, ChuckNorris.random_quote)
           when '/perlis'
             bot.api.send_message message_hash(message, AlanPerlis.random_quote)
+          else
+            bot.api.send_message message_hash(message, DEFAULT_MESSAGE + HELP_MESSAGE)
           end
         end
       end
