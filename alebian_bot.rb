@@ -2,6 +2,7 @@ require 'telegram/bot'
 require_relative 'lib/alan_perlis'
 require_relative 'lib/chuck_norris'
 require_relative 'lib/xkcd'
+require_relative 'lib/dilbert'
 require 'faker'
 require 'sentimental'
 require 'emoji'
@@ -9,7 +10,7 @@ require 'byebug'
 
 class AlebianBot
   DEFAULT_MESSAGE = 'Unknown command. '.freeze
-  HELP_MESSAGE = 'Available commands: /help, /chuck, /perlis, /star, /xkcd'.freeze
+  HELP_MESSAGE = 'Available commands: /help, /chuck, /perlis, /star, /xkcd, /dilbert'.freeze
 
   def initialize(token, logger)
     @token = token
@@ -33,6 +34,8 @@ class AlebianBot
           send_message(bot, message, Faker::StarWars.quote)
         when '/xkcd'
           send_photo(bot, message, Xkcd.random_comic)
+        when '/dilbert'
+          send_photo(bot, message, Dilbert.random_strip)
         else
           response = analyze_message(message.text)
           send_message(bot, message, response)
