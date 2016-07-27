@@ -2,8 +2,6 @@ require_relative 'alebian_bot'
 require 'logger'
 
 logger = Logger.new(STDOUT)
-logger.level = Logger::WARN
-
 token = nil
 
 begin
