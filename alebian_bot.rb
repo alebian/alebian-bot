@@ -6,7 +6,6 @@ require_relative 'lib/dilbert'
 require 'faker'
 require 'sentimental'
 require 'emoji'
-require 'byebug'
 
 class AlebianBot
   DEFAULT_MESSAGE = 'Unknown command. '.freeze
