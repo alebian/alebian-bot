@@ -13,7 +13,7 @@ GEM
     emoji (1.0.7)
       json
     equalizer (0.0.11)
-    faker (2.11.0)
+    faker (2.12.0)
       i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
