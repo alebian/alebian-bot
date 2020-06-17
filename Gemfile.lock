@@ -24,7 +24,7 @@ GEM
     json (2.3.0)
     mini_portile2 (2.4.0)
     multipart-post (2.1.1)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     sentimental (1.5.0)
     telegram-bot-ruby (0.12.0)
