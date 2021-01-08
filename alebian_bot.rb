@@ -1,11 +1,15 @@
 require 'telegram/bot'
+require 'oj'
+require 'faker'
+require 'sentimental'
+require 'emoji'
+
+Oj.optimize_rails
+
 require_relative 'lib/alan_perlis'
 require_relative 'lib/chuck_norris'
 require_relative 'lib/xkcd'
 require_relative 'lib/dilbert'
-require 'faker'
-require 'sentimental'
-require 'emoji'
 
 class AlebianBot
   DEFAULT_MESSAGE = 'Unknown command. '.freeze

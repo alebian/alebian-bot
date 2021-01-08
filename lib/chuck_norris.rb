@@ -1,5 +1,4 @@
 require 'net/http'
-require 'json'
 
 class ChuckNorris
   BASE_URL = 'http://api.icndb.com'
@@ -8,7 +7,7 @@ class ChuckNorris
     def random_quote
       uri = URI("#{BASE_URL}/jokes/random")
       response = Net::HTTP.get(uri)
-      json = JSON.parse(response)
+      json = Oj.load(response)
       return 'An error has ocurred' unless json['type'] == 'success'
       json['value']['joke']
     end
@@ -16,7 +15,7 @@ class ChuckNorris
     def random_quotes(number)
       uri = URI("#{BASE_URL}/jokes/random/#{number.to_i}")
       response = Net::HTTP.get(uri)
-      json = JSON.parse(response)
+      json = Oj.load(response)
       return 'An error has ocurred' unless json['type'] == 'success'
       json['value'].each_with_object([]) do |joke, array|
         array << joke['joke']
