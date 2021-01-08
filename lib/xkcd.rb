@@ -1,21 +1,23 @@
-require 'open-uri'
-require 'nokogiri'
-require 'faraday'
-
 class Xkcd
-  BASE_URL = 'http://c.xkcd.com'
+  module_function
+
+  BASE_URL = 'https://xkcd.com'.freeze
   TEMP_IMAGE = 'random-xkcd.png'.freeze
 
-  class << self
-    def random_comic
-      doc = Nokogiri::HTML(open(BASE_URL + '/random/comic/'))
-      img = doc.css('#comic img').first.attributes['src'].value
-      open('http:' + img) do |f|
-        File.open(TEMP_IMAGE, 'wb') do |file|
-          file.puts f.read
-        end
+  def random_comic
+    response = HTTP.get("#{BASE_URL}/info.0.json")
+    json = Oj.load(response.body)
+    total = json['num']
+    random = rand(total)
+
+    response = HTTP.get("#{BASE_URL}/#{random}/info.0.json")
+    json = Oj.load(response.body)
+    open(json['img']) do |f|
+      File.open(TEMP_IMAGE, 'wb') do |file|
+        file.puts f.read
       end
-      Faraday::UploadIO.new(TEMP_IMAGE, 'image/png')
     end
+
+    Faraday::UploadIO.new(TEMP_IMAGE, 'image/png')
   end
 end

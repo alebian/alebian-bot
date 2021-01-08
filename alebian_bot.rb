@@ -5,6 +5,9 @@ require 'http'
 require 'faker'
 require 'sentimental'
 require 'emoji'
+require 'open-uri'
+require 'nokogiri'
+require 'faraday'
 
 Oj.optimize_rails
 
