@@ -1,3 +1,5 @@
+require_relative 'helpers'
+
 module Dilbert
   module_function
 

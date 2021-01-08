@@ -1,3 +1,5 @@
+require_relative 'helpers'
+
 module Xkcd
   module_function
 
