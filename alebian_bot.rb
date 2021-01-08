@@ -44,6 +44,9 @@ class AlebianBot
           response = analyze_message(message.text)
           send_message(bot, message, response)
         end
+      rescue StandardError => e
+        @logger.error(e.message)
+        send_message(bot, message, "There was an error processing that command, sorry.")
       end
     end
   end
