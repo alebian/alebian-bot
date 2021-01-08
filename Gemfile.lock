@@ -61,7 +61,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 6.1)
   emoji
-  faker
+  faker (~> 2.15)
   faraday
   nokogiri
   oj (~> 3.10)

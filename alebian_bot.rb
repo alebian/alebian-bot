@@ -35,7 +35,7 @@ class AlebianBot
         when '/perlis'
           send_message(bot, message, AlanPerlis.random_quote)
         when '/star'
-          send_message(bot, message, Faker::StarWars.quote)
+          send_message(bot, message, Faker::Movies::StarWars.quote)
         when '/xkcd'
           send_photo(bot, message, Xkcd.random_comic)
         when '/dilbert'
