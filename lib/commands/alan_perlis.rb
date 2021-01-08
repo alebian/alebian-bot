@@ -86,7 +86,7 @@ module Commands
     def execute(_message)
       {
         value: QUOTES.sample,
-        type: TEXT
+        type: Types::TEXT
       }
     end
   end

@@ -11,7 +11,7 @@ module Commands
 
       {
         value: json.dig('value', 'joke'),
-        type: TEXT
+        type: Types::TEXT
       }
     end
   end

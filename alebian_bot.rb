@@ -45,9 +45,9 @@ class AlebianBot
             response = command.call(message.text)
 
             case response[:type]
-            when Commands::TEXT
+            when Commands::Types::TEXT
               send_message(bot, message, response[:value])
-            when Commands::PHOTO
+            when Commands::Types::PHOTO
               send_photo(bot, message, response[:value])
             end
 

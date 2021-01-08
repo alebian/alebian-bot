@@ -7,7 +7,7 @@ module Commands
     def execute(_message)
       {
         value: Faker::Movies::StarWars.quote,
-        type: TEXT
+        type: Types::TEXT
       }
     end
   end

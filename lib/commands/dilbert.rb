@@ -16,7 +16,7 @@ module Commands
 
       {
         value: Faraday::UploadIO.new(TEMP_IMAGE, 'image/gif'),
-        type: PHOTO
+        type: Types::PHOTO
       }
     end
   end

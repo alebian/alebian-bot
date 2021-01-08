@@ -1,8 +1,7 @@
+require_relative 'types'
+
 module Commands
   class Base
-    TEXT = :text
-    PHOTO = :photo
-
     def initialize(logger)
       @logger = logger
     end
