@@ -40,6 +40,7 @@ class AlebianBot
       bot.listen do |message|
         @logger.info("Message received: '#{message}'")
 
+        responded = false
         @commands.each do |command|
           if command.responds?(message.text)
             response = command.call(message.text)
@@ -51,12 +52,15 @@ class AlebianBot
               send_photo(bot, message, response[:value])
             end
 
-            return
+            responded = true
+            break
           end
         end
 
-        response = analyze_message(message.text)
-        send_message(bot, message, response)
+        if !responded
+          response = analyze_message(message.text)
+          send_message(bot, message, response)
+        end
 
       rescue StandardError => e
         @logger.error(e.message)
