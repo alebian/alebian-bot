@@ -3,7 +3,7 @@ require_relative 'helpers'
 module Dilbert
   module_function
 
-  BASE_URL = 'http://dilbert.com/'.freeze
+  BASE_URL = 'https://dilbert.com'.freeze
   TEMP_IMAGE = 'random-dilbert.gif'.freeze
 
   def random_strip

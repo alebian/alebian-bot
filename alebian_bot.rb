@@ -72,18 +72,16 @@ class AlebianBot
   end
 
   def send_message(bot, message, text)
-    bot.api.send_message message_hash(message, text)
-  end
-
-  def message_hash(message, text)
-    { chat_id: message.chat.id, text: text }
+    bot.api.send_message(
+      chat_id: message.chat.id,
+      text: text
+    )
   end
 
   def send_photo(bot, message, photo)
-    bot.api.send_photo photo_hash(message, photo)
-  end
-
-  def photo_hash(message, photo)
-    { chat_id: message.chat.id, photo: photo }
+    bot.api.send_photo(
+      chat_id: message.chat.id,
+      photo: photo
+    )
   end
 end
