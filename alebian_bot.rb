@@ -31,6 +31,8 @@ class AlebianBot
     Telegram::Bot::Client.run(@token) do |bot|
       bot.listen do |message|
         command = message.text.split(' ').first
+        @logger.info("#{command} received")
+
         case command
         when '/help'
           send_message(bot, message, HELP_MESSAGE)
