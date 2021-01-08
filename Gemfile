@@ -8,3 +8,5 @@ gem 'sentimental'
 gem 'emoji'
 gem 'nokogiri'
 gem 'faraday'
+
+gem "activesupport", "~> 6.1"
