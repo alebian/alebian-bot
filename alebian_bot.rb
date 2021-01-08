@@ -11,45 +11,53 @@ require 'faraday'
 
 Oj.optimize_rails
 
-require_relative 'lib/alan_perlis'
-require_relative 'lib/chuck_norris'
-require_relative 'lib/xkcd'
-require_relative 'lib/dilbert'
+require_relative 'lib/commands/alan_perlis'
+require_relative 'lib/commands/chuck_norris'
+require_relative 'lib/commands/dilbert'
+require_relative 'lib/commands/help'
+require_relative 'lib/commands/star_wars'
+require_relative 'lib/commands/xkcd'
 
 class AlebianBot
-  DEFAULT_MESSAGE = 'Unknown command. '.freeze
-  HELP_MESSAGE = 'Available commands: /help, /chuck, /perlis, /star, /xkcd, /dilbert'.freeze
-
   def initialize(token, logger)
     @token = token
     @logger = logger
     @analyzer = Sentimental.new
     @analyzer.load_defaults
+
+    @commands = [
+      Commands::AlanPerlis.new(logger),
+      Commands::ChuckNorris.new(logger),
+      Commands::Dilbert.new(logger),
+      Commands::Help.new(logger),
+      Commands::StarWars.new(logger),
+      Commands::Xkcd.new(logger)
+    ]
   end
 
   def run
     Telegram::Bot::Client.run(@token) do |bot|
       bot.listen do |message|
-        command = message.text.split(' ').first
-        @logger.info("#{command} received")
+        @logger.info("Message received: '#{message}'")
 
-        case command
-        when '/help'
-          send_message(bot, message, HELP_MESSAGE)
-        when '/chuck'
-          send_message(bot, message, ChuckNorris.random_quote)
-        when '/perlis'
-          send_message(bot, message, AlanPerlis.random_quote)
-        when '/star'
-          send_message(bot, message, Faker::Movies::StarWars.quote)
-        when '/xkcd'
-          send_photo(bot, message, Xkcd.random_comic)
-        when '/dilbert'
-          send_photo(bot, message, Dilbert.random_strip)
-        else
-          response = analyze_message(message.text)
-          send_message(bot, message, response)
+        @commands.each do |command|
+          if commands.responds?(message.text)
+            response = command.call(message.text)
+
+            case response[:type]
+            when Commands::TEXT
+              send_message(bot, message, response[:value])
+            when Commands::PHOTO
+              send_photo(bot, message, response[:value])
+            end
+
+            return
+          end
         end
+
+        response = analyze_message(message.text)
+        send_message(bot, message, response)
+
       rescue StandardError => e
         @logger.error(e.message)
         send_message(bot, message, "There was an error processing that command, sorry.")
