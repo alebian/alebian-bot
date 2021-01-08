@@ -1,4 +1,6 @@
 class AlanPerlis
+  module_function
+
   QUOTES = [
     "One man's constant is another man's variable.",
     'Syntactic sugar causes cancer of the semi-colons.',
@@ -78,7 +80,7 @@ class AlanPerlis
     'In seeking the unattainable, simplicity only gets in the way.'
   ].freeze
 
-  def self.random_quote
+  def random_quote
     QUOTES.sample
   end
 end

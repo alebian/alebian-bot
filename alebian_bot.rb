@@ -1,6 +1,7 @@
 require 'active_support/all'
 require 'telegram/bot'
 require 'oj'
+require 'http'
 require 'faker'
 require 'sentimental'
 require 'emoji'

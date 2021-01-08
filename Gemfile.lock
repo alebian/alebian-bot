@@ -7,6 +7,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -16,6 +18,8 @@ GEM
     concurrent-ruby (1.1.7)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     emoji (1.0.7)
       json
     equalizer (0.0.11)
@@ -26,6 +30,20 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     faraday-net_http (1.0.0)
+    ffi (1.14.2)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
+    http (4.4.1)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.3.0)
+    http-parser (1.2.2)
+      ffi-compiler
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -38,7 +56,9 @@ GEM
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     oj (3.10.18)
+    public_suffix (4.0.6)
     racc (1.5.2)
+    rake (13.0.3)
     ruby2_keywords (0.0.2)
     sentimental (1.5.0)
     telegram-bot-ruby (0.14.0)
@@ -48,6 +68,9 @@ GEM
     thread_safe (0.3.6)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -63,6 +86,7 @@ DEPENDENCIES
   emoji
   faker (~> 2.15)
   faraday
+  http (~> 4.4)
   nokogiri
   oj (~> 3.10)
   sentimental

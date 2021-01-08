@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'activesupport', '~> 6.1'
+gem 'http', '~> 4.4'
 gem 'oj', '~> 3.10'
 gem 'telegram-bot-ruby', '~> 0.14'
 
@@ -8,5 +10,3 @@ gem 'sentimental'
 gem 'emoji'
 gem 'nokogiri'
 gem 'faraday'
-
-gem "activesupport", "~> 6.1"

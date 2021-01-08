@@ -1,26 +1,11 @@
-require 'net/http'
-
 class ChuckNorris
-  BASE_URL = 'http://api.icndb.com'
+  module_function
 
-  class << self
-    def random_quote
-      uri = URI("#{BASE_URL}/jokes/random")
-      response = Net::HTTP.get(uri)
-      json = Oj.load(response)
-      return 'An error has ocurred' unless json['type'] == 'success'
-      json['value']['joke']
-    end
+  BASE_URL = 'http://api.icndb.com'.freeze
 
-    def random_quotes(number)
-      uri = URI("#{BASE_URL}/jokes/random/#{number.to_i}")
-      response = Net::HTTP.get(uri)
-      json = Oj.load(response)
-      return 'An error has ocurred' unless json['type'] == 'success'
-      json['value'].each_with_object([]) do |joke, array|
-        array << joke['joke']
-        array
-      end.join(' | ')
-    end
+  def random_quote
+    response = HTTP.get("#{BASE_URL}/jokes/random")
+    json = Oj.load(response.body)
+    json.dig('value', 'joke')
   end
 end
