@@ -1,4 +1,4 @@
-class ChuckNorris
+module ChuckNorris
   module_function
 
   BASE_URL = 'http://api.icndb.com'.freeze

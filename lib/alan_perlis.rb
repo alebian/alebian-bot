@@ -1,4 +1,4 @@
-class AlanPerlis
+module AlanPerlis
   module_function
 
   QUOTES = [

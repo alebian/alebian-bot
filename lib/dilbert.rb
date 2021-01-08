@@ -1,4 +1,4 @@
-class Dilbert
+module Dilbert
   module_function
 
   BASE_URL = 'http://dilbert.com/'.freeze
@@ -10,11 +10,8 @@ class Dilbert
 
     doc = Nokogiri::HTML(HTTP.get("#{BASE_URL}/strip/#{random_date_str}").body.to_s)
     img = doc.css('.img-comic-container img').first.attributes['src'].value
-    open(img) do |f|
-      File.open(TEMP_IMAGE, 'wb') do |file|
-        file.puts f.read
-      end
-    end
+    Helpers.store_file(img, TEMP_IMAGE)
+
     Faraday::UploadIO.new(TEMP_IMAGE, 'image/gif')
   end
 end
