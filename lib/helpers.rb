@@ -1,4 +1,4 @@
-class Helpers
+module Helpers
   module_function
 
   def store_file(url, path)
