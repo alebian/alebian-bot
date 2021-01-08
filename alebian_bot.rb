@@ -41,7 +41,7 @@ class AlebianBot
         @logger.info("Message received: '#{message}'")
 
         @commands.each do |command|
-          if commands.responds?(message.text)
+          if command.responds?(message.text)
             response = command.call(message.text)
 
             case response[:type]
