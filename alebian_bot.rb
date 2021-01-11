@@ -24,6 +24,8 @@ class AlebianBot
     @logger = logger
     @analyzer = Sentimental.new
     @analyzer.load_defaults
+    @bot = nil
+    @registrations = { dai: [] }
 
     @commands = [
       Commands::AlanPerlis.new(logger),
@@ -37,6 +39,23 @@ class AlebianBot
 
   def run
     Telegram::Bot::Client.run(@token) do |bot|
+      @bot = bot
+
+      Thread.start do
+        while true do
+          response = HTTP.get('https://be.buenbit.com/api/market/tickers/')
+          json = Oj.load(response.body)
+          price = json.dig('object', 'daiars', 'selling_price').to_d
+          @logger.info("DAI price: #{price}")
+          if price <= 160
+            @registrations[:dai].each do |chat_id|
+              @bot.api.send_message(chat_id: chat_id, text: price.to_s)
+            end
+          end
+          sleep(30)
+        end
+      end
+
       bot.listen do |message|
         @logger.info("Message received: '#{message}'")
 
@@ -55,6 +74,10 @@ class AlebianBot
             responded = true
             break
           end
+        end
+
+        if message.text == '/register'
+          @registrations[:dai] << message.chat.id
         end
 
         if !responded
