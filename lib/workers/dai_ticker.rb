@@ -2,8 +2,9 @@ module Workers
   class DaiTicker
     URL = 'https://be.buenbit.com/api/market/tickers/'.freeze
 
-    def initialize(bot)
+    def initialize(bot, logger)
       @bot = bot
+      @logger = logger
       @client = Redis.new
     end
 

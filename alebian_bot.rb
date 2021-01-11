@@ -21,7 +21,7 @@ class AlebianBot
   def run
     Telegram::Bot::Client.run(@token) do |bot|
       Thread.start do
-        Workers::DaiTicker.new(bot).call
+        Workers::DaiTicker.new(bot, @logger).call
       end
 
       bot.listen do |message|
