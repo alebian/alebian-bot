@@ -6,7 +6,7 @@ module Commands
 
     def execute(_message)
       {
-        value: 'Available commands: /help, /chuck, /perlis, /star, /xkcd, /dilbert',
+        value: 'Available commands: /help, /dai, /chuck, /perlis, /star, /xkcd, /dilbert',
         type: Types::TEXT
       }
     end

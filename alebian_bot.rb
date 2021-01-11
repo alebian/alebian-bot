@@ -1,22 +1,4 @@
-require 'active_support/all'
-require 'telegram/bot'
-require 'oj'
-require 'http'
-require 'faker'
-require 'sentimental'
-require 'emoji'
-require 'open-uri'
-require 'nokogiri'
-require 'faraday'
-
-Oj.optimize_rails
-
-require_relative 'lib/commands/alan_perlis'
-require_relative 'lib/commands/chuck_norris'
-require_relative 'lib/commands/dilbert'
-require_relative 'lib/commands/help'
-require_relative 'lib/commands/star_wars'
-require_relative 'lib/commands/xkcd'
+require_relative 'lib/boot'
 
 class AlebianBot
   def initialize(token, logger)
@@ -24,12 +6,11 @@ class AlebianBot
     @logger = logger
     @analyzer = Sentimental.new
     @analyzer.load_defaults
-    @bot = nil
-    @registrations = { dai: [] }
 
     @commands = [
       Commands::AlanPerlis.new(logger),
       Commands::ChuckNorris.new(logger),
+      Commands::Dai.new(logger),
       Commands::Dilbert.new(logger),
       Commands::Help.new(logger),
       Commands::StarWars.new(logger),
@@ -39,21 +20,8 @@ class AlebianBot
 
   def run
     Telegram::Bot::Client.run(@token) do |bot|
-      @bot = bot
-
       Thread.start do
-        while true do
-          response = HTTP.get('https://be.buenbit.com/api/market/tickers/')
-          json = Oj.load(response.body)
-          price = json.dig('object', 'daiars', 'selling_price').to_d
-          @logger.info("DAI price: #{price}")
-          if price <= 160
-            @registrations[:dai].each do |chat_id|
-              @bot.api.send_message(chat_id: chat_id, text: price.to_s)
-            end
-          end
-          sleep(30)
-        end
+        Workers::Dai.new(bot).call
       end
 
       bot.listen do |message|
@@ -62,7 +30,7 @@ class AlebianBot
         responded = false
         @commands.each do |command|
           if command.responds?(message.text)
-            response = command.call(message.text)
+            response = command.call(message)
 
             case response[:type]
             when Commands::Types::TEXT
@@ -74,10 +42,6 @@ class AlebianBot
             responded = true
             break
           end
-        end
-
-        if message.text == '/register'
-          @registrations[:dai] << message.chat.id
         end
 
         if !responded
