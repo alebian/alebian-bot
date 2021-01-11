@@ -19,10 +19,13 @@ module Workers
         (Oj.load(@client.get(Commands::Dai::KEY) || '{}')).each do |chat_id, options|
           alert_price = options[Commands::Dai::PRICE_KEY].to_d
           if price <= alert_price
+            @logger.info("Sending price to #{chat_id}")
             @bot.api.send_message(
               chat_id: chat_id,
               text: "Price #{price.to_s} is below #{alert_price}!"
             )
+          else
+            @logger.debug("Not sending price to #{chat_id}")
           end
         end
 
