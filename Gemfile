@@ -7,7 +7,7 @@ gem 'redis', '~> 4.2'
 gem 'require_all', '~> 3.0'
 gem 'telegram-bot-ruby', '~> 0.14'
 
-gem 'faker', '~> 2.15'
+gem 'faker', '~> 2.16'
 gem 'sentimental'
 gem 'emoji'
 gem 'nokogiri'
