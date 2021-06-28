@@ -32,25 +32,26 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     faraday-net_http (1.0.0)
-    ffi (1.14.2)
+    ffi (1.15.3)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    http (4.4.1)
+    http (5.0.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
-      http-parser (~> 1.2.0)
-    http-cookie (1.0.3)
+      llhttp-ffi (~> 0.3.0)
+    http-cookie (1.0.4)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
-    http-parser (1.2.2)
-      ffi-compiler
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     inflecto (0.0.2)
     json (2.5.1)
+    llhttp-ffi (0.3.1)
+      ffi-compiler (~> 1.0)
+      rake (~> 13.0)
     mini_portile2 (2.5.0)
     minitest (5.14.3)
     multipart-post (2.1.1)
@@ -104,7 +105,7 @@ DEPENDENCIES
   emoji
   faker (~> 2.15)
   faraday
-  http (~> 4.4)
+  http (~> 5.0)
   nokogiri
   oj (~> 3.10)
   redis (~> 4.2)
