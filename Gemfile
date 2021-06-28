@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'activesupport', '~> 6.1'
-gem 'http', '~> 4.4'
+gem 'http', '~> 5.0'
 gem 'oj', '~> 3.10'
 gem 'redis', '~> 4.2'
 gem 'require_all', '~> 3.0'
