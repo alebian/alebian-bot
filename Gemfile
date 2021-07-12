@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'activesupport', '~> 6.1'
 gem 'http', '~> 4.4'
-gem 'oj', '~> 3.10'
+gem 'oj', '~> 3.12'
 gem 'redis', '~> 4.2'
 gem 'require_all', '~> 3.0'
 gem 'telegram-bot-ruby', '~> 0.14'
